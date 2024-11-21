@@ -169,13 +169,6 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<AppDbContext>();
     context.Database.EnsureCreated();
     
-    
-// Eliminar la base de datos si existe
-    context.Database.EnsureDeleted();
-
-// Crear la base de datos
-    context.Database.EnsureCreated();
-    
 }
 
 // Configure the HTTP request pipeline.
@@ -188,6 +181,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("AllowAllPolicy");
 
 app.MapControllers();
 
