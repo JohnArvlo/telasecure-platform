@@ -43,9 +43,9 @@ builder.Services.AddControllers(options => options.Conventions.Add(new KebabCase
 //Add CORS Policy (to all controllers)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllPolicy",
+    options.AddPolicy("AllowSpecificOrigin",
         policy => 
-            policy.AllowAnyOrigin()
+            policy.WithOrigins("http://weaveguard-frontend.vercel.app")
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 });
@@ -182,7 +182,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors("AllowAllPolicy");
+app.UseCors("AllowSpecificOrigin");
 
 app.MapControllers();
 
