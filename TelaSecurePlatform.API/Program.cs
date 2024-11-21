@@ -162,6 +162,21 @@ builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
 
 var app = builder.Build();
 
+//configure the http request pipeline
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "TelaSecure Platform API");
+        c.RoutePrefix = string.Empty;
+    });
+}
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 // Verify Database Objects are Created
 using (var scope = app.Services.CreateScope())
 {
